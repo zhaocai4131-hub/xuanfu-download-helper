@@ -1,0 +1,65 @@
+name: ❓ 安装 / 使用求助
+description: 装不上、按钮不出现、提示「未检测到本机助手」等
+title: "[求助] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        装不上多半是同一类原因，先花 30 秒做这两件事，能省下我们来回好几轮：
+
+        1. 浏览器打开 <http://127.0.0.1:17890/ping> —— **能看到一段内容**说明本机程序活着
+        2. 打不开的话，去 `%LOCALAPPDATA%\FDMHelper\` 目录，手动双击启动程序，再看第 1 步
+
+  - type: dropdown
+    id: stuck-at
+    attributes:
+      label: 你卡在哪一步？
+      options:
+        - 下载安装包这一步
+        - 解压 / 双击安装程序这一步
+        - 装完本机程序，但浏览器打不开 ping 地址
+        - 本机程序能跑，但视频页没有「下载视频」按钮
+        - 浏览器扩展装不上 / 装了没反应
+        - 按钮点了提示「未检测到本机助手」
+        - 其他地方
+    validations:
+      required: true
+
+  - type: input
+    id: ping
+    attributes:
+      label: 打开 http://127.0.0.1:17890/ping 的结果
+      description: 把看到的内容（或报错）贴在这里。**这一条最关键。**
+      placeholder: 例如：显示 {"ok":true,"app":"xuanfu-helper","version":"2.13.2",...}
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: 你的 Windows 版本
+      description: 按 Win 键 → 输入「winver」→ 回车，能看到版本号
+      placeholder: 例如 Windows 11 24H2
+    validations:
+      required: false
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: 具体现象
+      description: 你做了什么、看到了什么。有截图最好，直接拖进来。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: tried
+    attributes:
+      label: 你试过哪些？
+      options:
+        - label: 我把下载的 ZIP **完整解压**了（不是直接在压缩包窗口里双击）
+          required: false
+        - label: 我在 Edge 的 `edge://extensions` 里确认过扩展是启用状态
+          required: false
+        - label: 我重启过浏览器
+          required: false
