@@ -1,0 +1,49 @@
+name: 💡 提一个功能建议
+description: 你希望它还能做什么？想改掉什么不顺手的地方？
+title: "[建议] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **你的建议会直接进下一个版本的候选清单。** 别嫌小 —— 「这里多一个按钮会顺手很多」这种话最有价值。
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: 你想要什么？
+      description: 一句话说清就行，不用想措辞。
+      placeholder: |
+        例如：希望能记住我上次选的画质，不用每次都重新选。
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 它解决了你什么麻烦？
+      description: 说清楚「没有它的时候你有多难受」，这决定了它的优先级。
+      placeholder: |
+        例如：我每天要下十几个视频，每次都要点开画质下拉选一遍 1080P，很烦。
+    validations:
+      required: true
+
+  - type: textarea
+    id: scene
+    attributes:
+      label: 你在什么场景下会用它？
+      placeholder: |
+        例如：剪片子找素材的时候，一天能用到几十次。
+    validations:
+      required: false
+
+  - type: dropdown
+    id: importance
+    attributes:
+      label: 对你来说多重要？
+      options:
+        - 没它也行，有了更好
+        - 有点影响效率，希望能加上
+        - 每次用都会被卡住，很需要
+    validations:
+      required: false
