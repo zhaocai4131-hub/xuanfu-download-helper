@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>悬浮下载助手 · 隐私政策</title>
+<style>
+  :root{--fg:#1f2329;--muted:#6b7280;--line:#e5e8ec;--blue:#1a73e8;--bg:#fff;--soft:#f7f9fc}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--soft);color:var(--fg);
+       font:16px/1.85 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  .top{background:#fff;border-bottom:1px solid var(--line)}
+  .top .in{max-width:820px;margin:0 auto;padding:16px 22px;display:flex;align-items:center;gap:12px}
+  .top a{color:var(--blue);text-decoration:none;font-size:14px}
+  .top b{font-size:15px}
+  .wrap{max-width:820px;margin:0 auto;padding:32px 22px 64px}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:38px 42px}
+  h1{font-size:26px;margin:0 0 6px}
+  .date{color:var(--muted);font-size:14px;margin-bottom:30px}
+  h2{font-size:18px;margin:34px 0 10px;padding-top:8px}
+  h2:first-of-type{margin-top:22px}
+  p,li{color:#33383f}
+  ul{padding-left:22px}
+  li{margin:6px 0}
+  code{background:#f2f4f7;padding:1px 6px;border-radius:5px;font-size:14px}
+  strong{color:#111}
+  footer{max-width:820px;margin:0 auto;padding:0 22px 60px;color:var(--muted);font-size:14px}
+  @media(max-width:640px){.card{padding:26px 20px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="in">
+  <b>悬浮下载助手</b>
+  <span style="flex:1"></span>
+  <a href="./index.html">首页</a>
+</div></div>
+
+<div class="wrap"><div class="card">
+
+<h1>悬浮下载助手 · 隐私政策</h1>
+<div class="date">最后更新：2026-09-22</div>
+
+<h2>一、总则</h2>
+<p>「悬浮下载助手」（以下称「本扩展」）是一款在浏览器中为网页视频与普通文件提供下载入口的扩展。
+本政策的目的是清楚地告诉你：本扩展会接触哪些数据、用来做什么、以及不会做什么。</p>
+
+<h2>二、我们不收集、不上传你的数据</h2>
+<p>本扩展<strong>没有</strong>任何开发者服务器。它不会把你的浏览记录、浏览过的网址、
+下载的文件内容或文件名、Cookie、账号信息上传到开发者或任何第三方。</p>
+<p>本扩展唯一通信的对象是你自己电脑上的本机程序（见第三节）。</p>
+
+<h2>三、本扩展只在你的本机通信</h2>
+<p>本扩展只与本机回环地址 <code>http://127.0.0.1:17890</code> 上的配套程序「悬浮下载助手」通信。
+该地址不经过互联网。native messaging 通道也是纯本机通道。</p>
+
+<h2>四、权限与用途</h2>
+<ul>
+  <li><strong>downloads</strong>：接管浏览器发起的下载（把这次下载交给本机程序，并从浏览器下载记录里移除），
+      在你关闭「接管浏览器下载」开关时把下载原样交还浏览器；下载完成后定位文件，以便「打开文件 / 打开所在文件夹」。</li>
+  <li><strong>cookies</strong>：仅当你主动点击「读取本页列表 / 批量下载」时，读取<strong>目标网站自己</strong>的 Cookie，
+      并附带在本机向<strong>该网站</strong>发出的请求中，使请求与你在浏览器里的登录状态一致。
+      这些 Cookie 不会被保存到磁盘、不会被上传、不会发送给第三方。</li>
+  <li><strong>alarms</strong>：定时唤醒被浏览器挂起的后台服务，以继续处理下载确认与进度。</li>
+  <li><strong>nativeMessaging</strong>：与本机配套程序通信的首选通道。</li>
+  <li><strong>scripting</strong>：在页面内注入下载按钮与面板、读取当前页信息以解析视频列表。</li>
+  <li><strong>storage</strong>：在本机保存你的偏好设置（是否启用接管、上次选择的画质、面板位置等）。</li>
+  <li><strong>notifications</strong>：下载完成或失败时提醒你。</li>
+  <li><strong>webRequest</strong>：<strong>只读</strong>观察请求以判断是否为可下载的视频流；不修改、不阻断、不重定向。</li>
+  <li><strong>host_permissions（所有网站）</strong>：悬浮按钮与普通文件下载接管需要在任意站点上工作，
+      无法预先枚举你会访问的网站。扩展不会在任何站点读取页面正文内容用于分析或上传。</li>
+</ul>
+
+<h2>五、接管浏览器下载这件事，你能控制</h2>
+<p>本扩展默认开启「接管浏览器下载」：当你在网页上点一次下载时，浏览器自带的下载会被本扩展截下并交给本机程序，
+浏览器下载栏里不会留下记录。这是为了让下载更快、并且不出现在浏览器下载历史里。</p>
+<p>你随时可以在扩展面板右上角的「设置」里取消勾选「接管浏览器下载（普通文件也交给下载助手）」。
+关闭之后，本扩展不再拦截任何普通文件下载，一切按浏览器原样进行。</p>
+
+<h2>六、第三方</h2>
+<p>本扩展不向第三方出售、出租或共享任何用户数据。
+除完成你主动发起的下载所必需的、向目标网站发出的请求之外，本扩展不进行任何网络传输。</p>
+
+<h2>七、数据留存</h2>
+<p>本扩展没有服务端，因此不存在服务端数据留存。
+你的偏好设置仅保存在本机浏览器的存储中，你可以通过移除扩展来一并清除。</p>
+
+<h2>八、儿童</h2>
+<p>本扩展不面向 13 岁以下儿童，也不会故意收集儿童的个人信息。</p>
+
+<h2>九、政策变更</h2>
+<p>如本政策有重大变更，我们会在本页面更新「最后更新」日期。</p>
+
+<h2>十、联系方式</h2>
+<p>如有隐私相关问题，请通过本扩展在 Microsoft Edge 加载项商店页面上的「支持联系人」与我们联系，
+或发送邮件至 <a href="mailto:zhaocai4131@gmail.com">zhaocai4131@gmail.com</a>。</p>
+
+</div></div>
+
+<footer>© 2026 悬浮下载助手</footer>
+</body>
+</html>
