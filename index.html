@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>悬浮下载助手 · 网页视频一键下载</title>
+<meta name="description" content="在网页上看到想留的视频或文件，点一下就下。支持画质选择、合集批量、实时进度，默认优先后期友好的 H.264 格式。">
+<style>
+  :root{
+    --fg:#16181d; --muted:#6b7280; --line:#e6e9ee; --blue:#1a73e8; --blue-d:#1765cc;
+    --soft:#f6f8fb; --card:#fff; --warn-bg:#fffbf2; --warn-line:#ffe0a8;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--soft);color:var(--fg);
+       font:16px/1.8 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+       -webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  .btn{display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none!important;
+       padding:13px 30px;border-radius:10px;font-size:15.5px;font-weight:600;transition:.15s}
+  .btn:hover{background:var(--blue-d);transform:translateY(-1px)}
+  .btn.ghost{background:#fff;color:var(--fg)!important;border:1px solid var(--line)}
+  .btn.ghost:hover{background:#f2f4f8}
+
+  /* ---------- hero ---------- */
+  header.hero{background:#fff;border-bottom:1px solid var(--line);padding:56px 0 50px}
+  .hero .in{display:flex;align-items:center;gap:30px}
+  .hero img.logo{width:88px;height:88px;border-radius:20px;flex:none;box-shadow:0 6px 22px rgba(20,40,80,.13)}
+  .hero h1{font-size:31px;line-height:1.35;margin:0 0 10px;letter-spacing:-.4px}
+  .hero p.sub{margin:0 0 22px;color:var(--muted);font-size:16.5px}
+  .hero .meta{color:var(--muted);font-size:13.5px;margin-top:14px}
+  .hero .meta b{color:var(--fg);font-weight:600}
+
+  /* ---------- sections ---------- */
+  section{padding:52px 0}
+  h2{font-size:23px;margin:0 0 8px;letter-spacing:-.2px}
+  .lead{color:var(--muted);margin:0 0 28px;font-size:15.5px}
+
+  /* ---------- screenshots ---------- */
+  .shot{background:var(--card);border:1px solid var(--line);border-radius:16px;
+        overflow:hidden;margin-bottom:22px;box-shadow:0 3px 16px rgba(20,40,80,.05)}
+  .shot img{display:block;width:100%;height:auto}
+  .shot .cap{padding:16px 22px 18px;font-size:14.5px;color:var(--muted);border-top:1px solid var(--line)}
+  .shot .cap b{color:var(--fg);display:block;font-size:15.5px;margin-bottom:2px}
+
+  /* ---------- features ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .f{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px 22px}
+  .f h3{font-size:15.5px;margin:0 0 6px}
+  .f h3 .dot{display:inline-block;width:22px;height:22px;border-radius:50%;background:#eaf1fe;
+             color:var(--blue);font-size:12.5px;font-weight:700;text-align:center;line-height:22px;margin-right:8px}
+  .f p{margin:0;color:var(--muted);font-size:14.5px}
+
+  /* ---------- steps ---------- */
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0}
+  .steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:13px;
+            padding:20px 24px 20px 66px;position:relative;margin-bottom:14px}
+  .steps li::before{content:counter(s);position:absolute;left:22px;top:20px;width:28px;height:28px;
+      border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:700;
+      display:flex;align-items:center;justify-content:center}
+  .steps b{display:block;margin-bottom:3px;font-size:15.5px}
+  .steps span{color:var(--muted);font-size:14.5px}
+  .steps code{background:#f1f3f6;padding:1px 6px;border-radius:5px;font-size:13.5px}
+
+  .note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:13px;
+        padding:20px 24px;margin-bottom:22px}
+  .note b{color:#8a5b00}
+
+  /* ---------- faq ---------- */
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;
+          padding:16px 22px;margin-bottom:10px}
+  details[open]{padding-bottom:20px}
+  summary{cursor:pointer;font-weight:600;font-size:15.5px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"＋";color:var(--blue);margin-right:10px;font-weight:700}
+  details[open] summary::before{content:"－"}
+  details p{margin:12px 0 0;color:#3a4048;font-size:14.8px}
+  details ul{margin:10px 0 0;padding-left:22px;color:#3a4048;font-size:14.8px}
+
+  /* ---------- feedback ---------- */
+  .fb{background:linear-gradient(135deg,#1a73e8,#0f5bc4);border-radius:18px;padding:38px 40px;color:#fff}
+  .fb h2{color:#fff;margin-bottom:10px}
+  .fb p{margin:0 0 22px;color:#dbe9ff;font-size:15.5px}
+  .fb .btn{background:#fff;color:var(--blue)!important}
+  .fb .btn:hover{background:#eef4ff}
+  .fb .alt{margin-top:16px;font-size:14px;color:#c7dcff}
+  .fb code{background:rgba(255,255,255,.16);padding:2px 7px;border-radius:5px;font-size:13.5px}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:14px}
+  footer .in{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+  footer .sp{flex:1}
+
+  @media(max-width:720px){
+    .hero .in{flex-direction:column;align-items:flex-start;gap:20px}
+    .hero h1{font-size:25px}
+    .grid{grid-template-columns:1fr}
+    .fb{padding:30px 24px}
+  }
+</style>
+</head>
+<body>
+
+<!--
+  ⚠️ 托管前必须替换下面这些占位符（全文搜 {{ 就能找全）：
+     https://github.com/zhaocai4131-hub/xuanfu-download-helper/releases/download/v2.13.2/XuanfuDownloadHelper_Setup_v2.13.2_Windows-x64.zip  助手安装包的公开直链
+     zhaocai4131@gmail.com           你的支持邮箱
+     https://github.com/zhaocai4131-hub/xuanfu-download-helper                仓库地址，例如 https://github.com/你的用户名/xuanfu-download-helper
+     https://zhaocai4131-hub.github.io/xuanfu-download-helper/privacy.html             隐私政策网址
+     https://github.com/zhaocai4131-hub/xuanfu-download-helper/releases          Edge 加载项商店链接（上架后填；未上架先指向 Releases）
+  替换命令：
+     python tool_fill_store_site.py --assistant-url "..." --email "..." --repo-url "..." --privacy-url "..." --store-url "..."
+-->
+
+<header class="hero"><div class="wrap"><div class="in">
+  <img class="logo" src="./logo.png" alt="悬浮下载助手">
+  <div>
+    <h1>在网页上看到想留的视频或文件，点一下就下</h1>
+    <p class="sub">不用复制链接，不用开别的软件 —— 浏览器里直接选画质、看进度。<br>
+       默认优先下载 <b>H.264</b>，剪映、达芬奇拿到就能编辑。</p>
+    <a class="btn" href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/releases/download/v2.13.2/XuanfuDownloadHelper_Setup_v2.13.2_Windows-x64.zip">下载安装包</a>
+    &nbsp;
+    <a class="btn ghost" href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/issues/new/choose">反馈问题 / 提建议</a>
+    <div class="meta">Windows 10 / 11 64 位　·　完全免费　·　<b>不需要管理员权限</b></div>
+  </div>
+</div></div></header>
+
+<!-- ============ 截图 ============ -->
+<section><div class="wrap">
+  <h2>它长这样</h2>
+  <p class="lead">下面都是真实界面截图（不是示意图）。</p>
+
+  <div class="shot">
+    <img src="./docs/screenshots/1-suspend-button.png" alt="视频页悬浮下载按钮">
+    <div class="cap"><b>① 播放器右上角，点一下就开始</b>不用复制链接，不用切到别的软件。</div>
+  </div>
+
+  <div class="shot">
+    <img src="./docs/screenshots/2-quality-panel.png" alt="画质选择面板">
+    <div class="cap"><b>② 清晰度带真实文件大小与编码格式</b>默认优先 H.264 —— 剪映、达芬奇直接能编辑。</div>
+  </div>
+
+  <div class="shot">
+    <img src="./docs/screenshots/3-downloading.png" alt="下载进度面板">
+    <div class="cap"><b>③ 速度、剩余时间实时可见</b>可随时暂停 / 继续 / 取消，下载完直接打开文件。</div>
+  </div>
+
+  <div class="shot">
+    <img src="./docs/screenshots/4-takeover.png" alt="普通文件自动接管">
+    <div class="cap"><b>④ 普通文件下载自动接管</b>浏览器下载栏不留痕；不想要可在「设置」里关掉。</div>
+  </div>
+</div></section>
+
+<!-- ============ 功能 ============ -->
+<section style="padding-top:0"><div class="wrap">
+  <h2>功能一览</h2>
+  <p class="lead">为「经常要存素材的人」做的，不是通用下载器。</p>
+  <div class="grid">
+    <div class="f"><h3><span class="dot">1</span>视频页悬浮按钮</h3>
+      <p>打开视频页面，播放器右上角出现「下载视频」按钮，点一下选画质就能下。</p></div>
+    <div class="f"><h3><span class="dot">2</span>画质可选，剪辑友好</h3>
+      <p>列出所有可用清晰度，带真实文件大小与编码格式，默认优先 H.264。</p></div>
+    <div class="f"><h3><span class="dot">3</span>深入适配 B站 / YouTube</h3>
+      <p>画质列表、合集、分 P、UP主主页、播放列表都能识别。</p></div>
+    <div class="f"><h3><span class="dot">4</span>普通文件自动接管</h3>
+      <p>在网页上点下载，直接由本机下载器接手，浏览器下载栏不留记录。</p></div>
+    <div class="f"><h3><span class="dot">5</span>多连接加速</h3>
+      <p>本机自研下载引擎，多连接并行（上限 16），比浏览器单线程快得多。</p></div>
+    <div class="f"><h3><span class="dot">6</span>实时进度与控制</h3>
+      <p>进度、速度、剩余时间一目了然，可暂停 / 继续 / 取消。</p></div>
+    <div class="f"><h3><span class="dot">7</span>粘贴链接下载</h3>
+      <p>不想开网页也行，把链接粘进面板就能开始。</p></div>
+    <div class="f"><h3><span class="dot">8</span>免安装、不留垃圾</h3>
+      <p>本机程序免安装直跑：不写开机自启、不建桌面图标、不改浏览器设置。</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 安装 ============ -->
+<section style="padding-top:0"><div class="wrap">
+  <h2>三分钟开始使用</h2>
+  <p class="lead">先用两分钟装好，之后就是一键的事。</p>
+
+  <div class="note">
+    <b>⚠️ 本扩展需要配合 Windows 本机程序使用，这不是可选项。</b><br>
+    扩展是「浏览器这一半」，负责在页面里给你入口和进度；真正的下载由本机程序完成。两者装在一起才完整工作。
+  </div>
+
+  <ol class="steps">
+    <li><b>下载并完整解压</b>
+      <span>从 <a href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/releases/download/v2.13.2/XuanfuDownloadHelper_Setup_v2.13.2_Windows-x64.zip">这里下载安装包</a>，<b>完整解压</b> ZIP（不要直接在压缩包窗口里双击）。</span></li>
+    <li><b>运行安装程序</b>
+      <span>双击解压目录里的「<code>安装 悬浮下载助手.exe</code>」。它只写当前用户范围，
+      不需要管理员权限，不写开机自启、不建桌面图标、不改浏览器设置。装完会自动启动。</span></li>
+    <li><b>自检（可跳过）</b>
+      <span>浏览器打开 <a href="http://127.0.0.1:17890/ping">http://127.0.0.1:17890/ping</a>，
+      能看到一段 JSON 就说明本机程序已就绪。</span></li>
+    <li><b>安装浏览器扩展</b>
+      <span>到 Microsoft Edge 加载项商店搜索「悬浮下载助手」安装 —
+      <a href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/releases">点这里直接打开</a>。</span></li>
+    <li><b>试一下</b>
+      <span>打开任意视频页，播放器右上角应该出现蓝色「下载视频」按钮。点它 → 选画质 → 开始下载。</span></li>
+  </ol>
+</div></section>
+
+<!-- ============ FAQ ============ -->
+<section style="padding-top:0"><div class="wrap">
+  <h2>常见问题</h2>
+  <p class="lead">遇到问题先扫一眼这里，能省下我们来回好几轮。</p>
+
+  <details><summary>为什么必须装一个本机程序？能不能只有扩展？</summary>
+    <p>不能。浏览器扩展受平台限制，做不了多连接下载、格式转换、视频解析这些重活。
+    所以架构上分成两半：扩展负责页面里的入口和进度显示，本机程序负责真正下载。
+    这也正是它比纯浏览器扩展快很多的原因。</p></details>
+
+  <details><summary>点按钮没反应 / 提示「未检测到本机助手」？</summary>
+    <p>八成是本机程序没跑起来。做两件事：</p>
+    <ul>
+      <li>浏览器打开 <a href="http://127.0.0.1:17890/ping">http://127.0.0.1:17890/ping</a> 看有没有内容 —— 打不开 = 本机程序没启动。</li>
+      <li>没启动的话，去 <code>%LOCALAPPDATA%\FDMHelper</code> 目录手动双击启动程序。</li>
+    </ul>
+    <p>还不行就到 <a href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/issues/new/choose">Issues</a> 报一下，附上本机程序目录里的日志。</p></details>
+
+  <details><summary>会不会偷偷拦截我的下载？</summary>
+    <p>不会偷偷做，但<b>确实默认会接手</b>普通文件下载 —— 这是我们特意设计的（避免浏览器下载栏留记录，也为了更快）。</p>
+    <p><b>你能随时关掉</b>：扩展面板右上角「设置」→ 取消勾选「接管浏览器下载（普通文件也交给下载助手）」。
+    关掉之后，所有普通文件下载完全按浏览器原样进行，扩展不再插手。</p></details>
+
+  <details><summary>我的浏览记录、Cookie 会被上传吗？</summary>
+    <p>不会。本软件<b>没有任何开发者服务器</b>，不收集、不上传你的浏览记录、下载内容或 Cookie。
+    扩展只与本机 <code>127.0.0.1</code> 上的程序通信，这个地址不经过互联网。</p>
+    <p>详见 <a href="https://zhaocai4131-hub.github.io/xuanfu-download-helper/privacy.html">隐私政策</a>。</p></details>
+
+  <details><summary>为什么点下载后，浏览器下载栏里没东西？</summary>
+    <p>这是<b>有意为之</b>的设计：浏览器自带的那份下载会在弹出任何提示之前就被取消并抹掉记录，
+    免得你在下载栏里看到一堆没用的记录。真正的任务在本机下载器的面板里。</p></details>
+
+  <details><summary>下载的文件在哪？</summary>
+    <p>在扩展面板的「保存到」里能看到和修改，默认为你的下载目录。
+    下载完成后面板里有「打开文件」和「打开所在文件夹」两个按钮。</p></details>
+
+  <details><summary>支持哪些网站？</summary>
+    <p>主要针对 <b>B站</b> 和 <b>YouTube</b> 做了深度适配；普通文件下载（任意网站）全站通用。
+    国内其他平台在陆续适配中 —— 你也可以在 Issues 里点名。</p></details>
+
+  <details><summary>能装在别的电脑上吗？</summary>
+    <p>可以。把解压后的文件夹拷过去，双击安装程序即可。免安装、无注册表残留。</p></details>
+</div></section>
+
+<!-- ============ 反馈 ============ -->
+<section style="padding-top:0"><div class="wrap">
+  <div class="fb">
+    <h2>遇到问题？帮我把它做得更好 🙌</h2>
+    <p>这个软件还在快速迭代 —— <b>你的反馈会直接决定下一个版本改什么</b>。<br>
+       不管是 bug、卡住的地方，还是「这里多一个按钮会顺手很多」这种小事，都欢迎说。</p>
+    <a class="btn" href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/issues/new/choose">提交问题 / 建议</a>
+    <div class="alt">没有 GitHub 账号？发邮件到 <code>zhaocai4131@gmail.com</code>（邮件容易漏，能用 GitHub 还是推荐走上面）</div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><div class="in">
+  <span>© 2026 悬浮下载助手</span>
+  <span class="sp"></span>
+  <a href="./privacy.html">隐私政策</a>
+  <a href="https://github.com/zhaocai4131-hub/xuanfu-download-helper">GitHub</a>
+  <a href="https://github.com/zhaocai4131-hub/xuanfu-download-helper/releases">更新日志</a>
+</div></div></footer>
+
+</body>
+</html>
