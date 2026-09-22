@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: 📖 先看常见问题（很多问题这里已有答案）
+    url: https://github.com/zhaocai4131-hub/xuanfu-download-helper#常见问题
+    about: 为什么必须装本机程序、点按钮没反应、会不会偷偷拦截下载、文件下到哪去了……
+
+  - name: ✉️ 没有 GitHub 账号？发邮件给我
+    url: mailto:zhaocai4131@gmail.com
+    about: 会用 GitHub 的话还是建议走上面两个模板，邮件容易漏。
+
+  - name: 🌐 产品介绍页 / 隐私政策
+    url: https://zhaocai4131-hub.github.io/xuanfu-download-helper/
+    about: 图文介绍、安装引导、隐私政策全文。
