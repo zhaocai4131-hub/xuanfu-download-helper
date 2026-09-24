@@ -7,7 +7,7 @@
 **在网页上看到想留的视频或文件，点一下就下。**
 不用复制链接，不用开别的软件，不用在被窝里等进度。
 
-[![Version](https://img.shields.io/badge/version-2.14.7-blue)](../../releases)
+[![Version](https://img.shields.io/badge/version-2.14.8-blue)](../../releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011%20x64-lightgrey)](#系统要求)
 [![Edge Add-ons](https://img.shields.io/badge/Edge-%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%95%86%E5%BA%97-0078D7)](#三分钟开始使用)
 [![Free](https://img.shields.io/badge/%E4%BB%B7%E6%A0%BC-%E5%85%8D%E8%B4%B9-2ea44f)](#使用许可)
